@@ -48,9 +48,9 @@ void setup()
     pinMode(BOARD_POWER_ON, OUTPUT);
     digitalWrite(BOARD_POWER_ON, HIGH);
 
+    // RS485 Drive LOW to normal operation , HIGH to put the part in shutdown.
     pinMode(BOARD_485_EN, OUTPUT);
     digitalWrite(BOARD_485_EN, LOW);
-
 }
 
 void loop()

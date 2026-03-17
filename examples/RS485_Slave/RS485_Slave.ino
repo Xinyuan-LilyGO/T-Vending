@@ -20,15 +20,17 @@ uint32_t counter = 0;
 
 void setup()
 {
+    Serial.begin(115200);
+
+    Serial485.begin(9600, SERIAL_8N1, BOARD_485_RX, BOARD_485_TX);
+
     // Peripheral power supply is enabled, the Pin must be set to HIGH to use PCIE, RS485
     pinMode(BOARD_POWER_ON, OUTPUT);
     digitalWrite(BOARD_POWER_ON, HIGH);
 
+    // RS485 Drive LOW to normal operation , HIGH to put the part in shutdown.
     pinMode(BOARD_485_EN, OUTPUT);
-    digitalWrite(BOARD_485_EN, HIGH);
-
-    Serial.begin(115200);
-    Serial485.begin(9600, SERIAL_8N1, BOARD_485_RX, BOARD_485_TX);
+    digitalWrite(BOARD_485_EN, LOW);
 }
 
 
@@ -39,9 +41,9 @@ void loop()
     }
     while (Serial485.available()) {
         String  recv = Serial485.readStringUntil('\n');
-        Serial.print("<- Recver:");
+        Serial.print("<- Receiver:");
         Serial.println(recv);
-        Serial485.print("<-- Rspone :"); Serial485.println(recv);
+        Serial485.print("<-- Response :"); Serial485.println(recv);
     }
 }
 
